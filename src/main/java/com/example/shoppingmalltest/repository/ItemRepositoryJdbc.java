@@ -20,14 +20,14 @@ public class ItemRepositoryJdbc implements ItemRepository {
 
     @Override
     public Item save(Item item) {
-        String sql = "insert into item(id, itemName, price) values(?, ?)";
+        String sql = "insert into item(id, itemName, price) values(?, ?, ?)";
         template.update(sql, item.getId(), item.getItemName(), item.getItemPrice());
         return item;
     }
 
     @Override
     public Item findById(Long itemId) {
-        String sql = "select * from member where id = ?";
+        String sql = "select * from item where id = ?";
         return template.queryForObject(sql, itemRowMapper(), itemId);
     }
 
