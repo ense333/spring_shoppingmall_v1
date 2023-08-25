@@ -12,5 +12,4 @@ public interface ItemRepository{
     void update(Long itemId, Item updateParam);
     void clearStore();
 
-
 }
