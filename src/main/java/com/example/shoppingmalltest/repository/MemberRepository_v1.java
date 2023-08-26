@@ -5,11 +5,13 @@ import com.example.shoppingmalltest.domain.member.Member;
 import com.example.shoppingmalltest.domain.member.MemberRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class MemberRepository_v1 implements MemberRepository {
 
     private final JdbcTemplate template;

@@ -5,10 +5,13 @@ import com.example.shoppingmalltest.domain.item.ItemRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 
+@Repository
 @Slf4j
 public class ItemRepositoryJdbc implements ItemRepository {
 
@@ -44,7 +47,6 @@ public class ItemRepositoryJdbc implements ItemRepository {
 
     @Override
     public void clearStore() {
-
     }
 
     private RowMapper<Item> itemRowMapper(){

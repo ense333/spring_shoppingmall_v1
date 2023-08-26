@@ -1,8 +1,8 @@
 package com.example.shoppingmalltest.domain.item;
 
-import com.example.shoppingmalltest.domain.item.Item;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ItemRepository{
 
