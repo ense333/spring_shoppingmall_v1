@@ -2,9 +2,12 @@ package com.example.shoppingmalltest.repository;
 
 import com.example.shoppingmalltest.domain.item.Item;
 import com.example.shoppingmalltest.domain.item.ItemRepository;
+import com.example.shoppingmalltest.web.item.form.ItemUpdateForm;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.ObjectUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class MemoryItemRepository implements ItemRepository {
@@ -20,17 +23,32 @@ public class MemoryItemRepository implements ItemRepository {
     }
 
     @Override
-    public Item findById(Long itemId) {
-        return store.get(itemId);
+    public Optional<Item> findById(Long itemId) {
+        return Optional.ofNullable(store.get(itemId));
     }
 
     @Override
-    public List<Item> findAll() {
-        return new ArrayList<>(store.values());
+    public List<Item> findAll(ItemSearchCond cond) {
+        String itemName = cond.getItemName();
+        Integer maxPrice = cond.getMaxPrice();
+        return store.values().stream()
+                .filter(item -> {
+                    if(ObjectUtils.isEmpty(itemName)){
+                        return true;
+                    }
+                    return item.getItemName().contains(itemName);
+                }).filter(item -> {
+                    if(maxPrice == null){
+                        return true;
+                    }
+                    return item.getItemPrice() <= maxPrice;
+                })
+                .collect(Collectors.toList());
     }
 
+
     @Override
-    public void update(Long itemId, Item updateParam) {
+    public void update(Long itemId, ItemUpdateForm updateParam) {
         Item findItem = store.get(itemId);
         findItem.setItemName(updateParam.getItemName());
         findItem.setQuantity(updateParam.getQuantity());

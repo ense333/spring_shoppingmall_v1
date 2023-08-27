@@ -2,6 +2,7 @@ package com.example.shoppingmalltest.repository;
 
 import com.example.shoppingmalltest.domain.item.Item;
 import com.example.shoppingmalltest.domain.item.ItemRepository;
+import com.example.shoppingmalltest.web.item.form.ItemUpdateForm;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +30,7 @@ class MemoryItemRepositoryTest {
         Item savedItem = itemRepository.save(item);
 
         //then
-        Item findItem = itemRepository.findById(item.getId());
+        Item findItem = itemRepository.findById(item.getId()).get();
         assertThat(findItem).isEqualTo(savedItem);
     }
 
@@ -38,12 +39,14 @@ class MemoryItemRepositoryTest {
         //given
         Item item1 = new Item("item1", 10, 10000);
         Item item2 = new Item("item2", 20, 20000);
+        ItemSearchCond cond = new ItemSearchCond(null, null);
 
         itemRepository.save(item1);
         itemRepository.save(item2);
 
+
         //when
-        List<Item> result = itemRepository.findAll();
+        List<Item> result = itemRepository.findAll(cond);
 
         //then
         assertThat(result.size()).isEqualTo(2);
@@ -59,10 +62,13 @@ class MemoryItemRepositoryTest {
         Long itemId = savedItem.getId();
 
         //when
-        Item updateParam = new Item("item2", 30, 20000);
+        ItemUpdateForm updateParam = new ItemUpdateForm();
+        updateParam.setItemPrice(20000);
+        updateParam.setItemName("item2");
+        updateParam.setQuantity(30);
         itemRepository.update(itemId, updateParam);
 
-        Item findItem = itemRepository.findById(itemId);
+        Item findItem = itemRepository.findById(itemId).get();
 
         //then
         assertThat(findItem.getItemName()).isEqualTo(updateParam.getItemName());
