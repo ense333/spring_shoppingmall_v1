@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class Item {
     private Long id;
-    @NotNull
+
     private String itemName;
     private Integer quantity;
     private Integer itemPrice;
