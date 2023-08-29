@@ -13,6 +13,5 @@ public interface ItemRepository{
     Optional<Item> findById(Long itemId);
     List<Item> findAll(ItemSearchCond cond);
     void update(Long itemId, ItemUpdateForm updateParam);
-    void clearStore();
 
 }

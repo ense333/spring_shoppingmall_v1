@@ -2,11 +2,10 @@ package com.example.shoppingmalltest.repository;
 
 import com.example.shoppingmalltest.domain.member.Member;
 import com.example.shoppingmalltest.domain.member.MemberRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
-@Repository
+//@Repository
 public class MemoryMemberRepository implements MemberRepository {
 
     private static final Map<Long, Member> store = new HashMap<>();
@@ -22,8 +21,8 @@ public class MemoryMemberRepository implements MemberRepository {
     }
 
     @Override
-    public Member findById(Long id) {
-        return store.get(id);
+    public Optional<Member> findById(Long id) {
+        return Optional.ofNullable(store.get(id));
     }
 
     @Override

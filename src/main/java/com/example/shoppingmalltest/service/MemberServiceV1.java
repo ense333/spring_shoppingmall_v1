@@ -20,8 +20,8 @@ public class MemberServiceV1 implements MemberService{
     }
 
     @Override
-    public Member findById(Long id) {
-        return memberRepository.findById(id);
+    public Optional<Member> findById(Long id) {
+        return Optional.of(memberRepository.findById(id).get());
     }
 
     @Override
