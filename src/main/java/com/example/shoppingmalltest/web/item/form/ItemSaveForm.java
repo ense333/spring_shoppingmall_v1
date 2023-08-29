@@ -18,6 +18,6 @@ public class ItemSaveForm {
 
     @NotNull
     @Range(min = 100)
-    private Integer itemPrice;
+    private Integer price;
 
 }

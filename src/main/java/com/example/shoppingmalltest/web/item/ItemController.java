@@ -29,19 +29,20 @@ public class ItemController {
     public String items(@ModelAttribute("itemSearch")ItemSearchCond itemSearch, Model model){
         List<Item> items = itemService.findItems(itemSearch);
         model.addAttribute("items", items);
-        return "items";
+        return "items/items";
     }
 
     @GetMapping("/{itemId}")
     public String item(@PathVariable long itemId, Model model){
         Item item = itemService.findById(itemId).get();
         model.addAttribute("item", item);
-        return "item";
+        return "items/item";
     }
 
     @GetMapping("/add")
-    public String addForm(){
-        return "addForm";
+    public String addForm(Model model){
+        model.addAttribute("item", new Item());
+        return "items/addForm";
     }
 
     /*
@@ -57,8 +58,8 @@ public class ItemController {
                           BindingResult bindingResult, RedirectAttributes redirectAttributes){
         //특정 필드 예외가 아닌 전체 예외의 경우
         //가격 * 수량의 합 > 10000 이상이어야 함
-        if(form.getItemPrice() != null && form.getQuantity() != null){
-            int resultPrice = form.getItemPrice() * form.getQuantity();
+        if(form.getPrice() != null && form.getQuantity() != null){
+            int resultPrice = form.getPrice() * form.getQuantity();
             if(resultPrice < 10000){
                 bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
             }
@@ -72,7 +73,7 @@ public class ItemController {
         //성공로직
         Item item = new Item();
         item.setItemName(form.getItemName());
-        item.setItemPrice(form.getItemPrice());
+        item.setPrice(form.getPrice());
         item.setQuantity(form.getQuantity());
 
         Item savedItem = itemService.save(item);
@@ -92,8 +93,8 @@ public class ItemController {
     public String edit(@PathVariable Long itemId,
                        @Validated @ModelAttribute("item")ItemUpdateForm form, BindingResult bindingResult){
         //특정 필드 예외가 아닌 전체 예외
-        if(form.getItemPrice() != null && form.getQuantity() != null){
-            int resultPrice = form.getItemPrice() * form.getQuantity();
+        if(form.getPrice() != null && form.getQuantity() != null){
+            int resultPrice = form.getPrice() * form.getQuantity();
             if(resultPrice < 10000){
                 bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
             }
@@ -106,7 +107,7 @@ public class ItemController {
 
         ItemUpdateForm itemParam = new ItemUpdateForm();
         itemParam.setItemName(form.getItemName());
-        itemParam.setItemPrice(form.getItemPrice());
+        itemParam.setPrice(form.getPrice());
         itemParam.setQuantity(form.getQuantity());
 
         itemService.update(itemId, itemParam);

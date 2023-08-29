@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+//@Repository
 @Slf4j
 public class ItemRepositoryJdbc implements ItemRepository {
 
@@ -31,7 +31,7 @@ public class ItemRepositoryJdbc implements ItemRepository {
     @Override
     public Item save(Item item) {
         String sql = "insert into item(id, itemName, price) values(?, ?, ?)";
-        template.update(sql, item.getId(), item.getItemName(), item.getItemPrice());
+        template.update(sql, item.getId(), item.getItemName(), item.getPrice());
         return item;
     }
 
@@ -71,7 +71,7 @@ public class ItemRepositoryJdbc implements ItemRepository {
     @Override
     public void update(Long itemId, ItemUpdateForm updateParam) {
         String sql = "update item set price=? where itemName=?";
-        template.update(sql, updateParam.getItemPrice(), updateParam.getItemName());
+        template.update(sql, updateParam.getPrice(), updateParam.getItemName());
     }
 
     @Override
@@ -83,7 +83,7 @@ public class ItemRepositoryJdbc implements ItemRepository {
             Item item = new Item();
             item.setId(rs.getLong("id"));
             item.setItemName(rs.getString("itemName"));
-            item.setItemPrice(rs.getInt("price"));
+            item.setPrice(rs.getInt("price"));
             return item;
         };
     }

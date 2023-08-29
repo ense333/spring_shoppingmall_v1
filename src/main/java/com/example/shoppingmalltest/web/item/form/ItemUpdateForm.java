@@ -19,6 +19,6 @@ public class ItemUpdateForm {
 
     @NotNull
     @Range(min = 1)
-    private Integer itemPrice;
+    private Integer price;
 
 }

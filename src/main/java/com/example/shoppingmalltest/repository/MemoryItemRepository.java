@@ -41,7 +41,7 @@ public class MemoryItemRepository implements ItemRepository {
                     if(maxPrice == null){
                         return true;
                     }
-                    return item.getItemPrice() <= maxPrice;
+                    return item.getPrice() <= maxPrice;
                 })
                 .collect(Collectors.toList());
     }
@@ -52,7 +52,7 @@ public class MemoryItemRepository implements ItemRepository {
         Item findItem = store.get(itemId);
         findItem.setItemName(updateParam.getItemName());
         findItem.setQuantity(updateParam.getQuantity());
-        findItem.setItemPrice(updateParam.getItemPrice());
+        findItem.setPrice(updateParam.getPrice());
     }
 
     @Override

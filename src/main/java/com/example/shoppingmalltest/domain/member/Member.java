@@ -8,13 +8,11 @@ import javax.validation.constraints.NotEmpty;
 public class Member {
 
     private Long id;
+
     @NotEmpty
-    private String memberId;
+    private String loginId;
+    @NotEmpty
+    private String name;
     @NotEmpty
     private String password;
-    @NotEmpty
-    private String userName;
-    @NotEmpty
-    private String email;
-    private Integer money;
 }

@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+//@Repository
 public class MemberRepository_v1 implements MemberRepository {
 
     private final JdbcTemplate template;
@@ -22,8 +22,8 @@ public class MemberRepository_v1 implements MemberRepository {
 
     @Override
     public Member save(Member member) {
-        String sql = "insert into member(id, memberId, userName, money, email) values(?, ?, ?, ?, ?)";
-        template.update(sql, member.getId(), member.getMemberId(), member.getUserName(), member.getMoney(), member.getEmail());
+        String sql = "insert into member(id, memberId, userName, money, email) values(?, ?, ?)";
+        template.update(sql, member.getId(), member.getLoginId(), member.getName());
         return member;
     }
 
@@ -50,10 +50,8 @@ public class MemberRepository_v1 implements MemberRepository {
         return (rs, rowNum) -> {
             Member member = new Member();
             member.setId(rs.getLong("id"));
-            member.setMemberId(rs.getString("memberId"));
-            member.setUserName(rs.getString("userName"));
-            member.setEmail(rs.getString("email"));
-            member.setMoney(rs.getInt("money"));
+            member.setLoginId(rs.getString("memberId"));
+            member.setName(rs.getString("userName"));
             return member;
         };
     }
