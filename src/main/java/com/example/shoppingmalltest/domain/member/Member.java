@@ -1,5 +1,6 @@
 package com.example.shoppingmalltest.domain.member;
 
+import com.example.shoppingmalltest.web.customAnnotation.UniqueValue;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -9,6 +10,7 @@ public class Member {
 
     private Long id;
 
+    @UniqueValue
     @NotEmpty
     private String loginId;
     @NotEmpty
